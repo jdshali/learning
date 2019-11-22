@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<title></title>
+
+<body>
+    <div id="app"></div>
+
+    <div id="app2"></div>
+
+    <div id="app3"></div>
+    <script type="text/x-dot-template" id="testTpl">
+        <div>{{= it.msg }}</div>
+        <div>{{= it.code }}</div>
+    </script>
+
+    <script type="text/x-dot-template" id="testTpl2">
+        {{ if (it.status == true) { }}
+            <div class="success">操作成功</div>
+        {{ } else { }}
+            <div class="error">操作错误</div>
+        {{ } }}
+    </script>
+
+    <script type="text/x-dot-template" id="testTpl3">
+        {{~ it.list:item:index }}
+            <tr>
+                <td>{{= index + 1 }}</td>
+                <td>{{= item.name }}</td>
+                <td>{{= item.email }}</td>
+            </tr>
+        {{~ }}
+    </script>
+</body>
+
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+</script>
+<script src="./lib/dot.js"></script>
+
+<script>
+//参考:https://www.jianshu.com/p/693f664b27e4
+var message = {
+    msg: 'Hello world.',
+    code: 200
+};
+//使用doT.template(tplText)函数，tplText为模板文本
+var tpl = doT.template($("#testTpl").text()); //某些浏览器可能会取不到模板内容，可用$("#testTpl").html()
+//传入数据获取html
+var html = tpl(message);
+$('#app').html(html)
+
+
+var result = {
+    status: true,
+    error: ''
+};
+var tpl = doT.template($("#testTpl2").text());
+var html = tpl(result);
+$('#app2').html(html)
+
+
+var data = {
+    status: true,
+    msg: 'success',
+    list: [{
+        id: 1,
+        name: 'zhangsan',
+        email: 'zhangsan@lwhweb.com'
+    }, {
+        id: 2,
+        name: 'lisi',
+        email: 'lisi@lwhweb.com'
+    }]
+};
+var tpl = doT.template($("#testTpl3").html());
+var html = tpl(data);
+
+$('#app3').html(html)
+</script>
+
