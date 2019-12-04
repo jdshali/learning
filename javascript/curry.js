@@ -3,6 +3,7 @@
 // )([...args1, ...args2]);
 
 //函数柯里化
+//只传递给函数一部分参数来调用它，让它返回一个函数去处理剩下的参数
 
 function curry(fn, args) {
     const fnLen = fn.length;

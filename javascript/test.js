@@ -1,23 +1,16 @@
-var Pclass = (function(){
-  const a = Symbol('a');
-  const m = Symbol('m');
-  class  Pclass {
-      constructor(){
-          this[a] = 'a这是私有变量';
-          this.b = '变量B-外部可访问';
-          this[m] = function(){
-              console.log('私有方法');
-          }
-      }
-      getA(){
-          console.log(this[a]);
-      }
-      getM(){
-          console.log(this[m]);
-      }
-  }
-  return Pclass
-}())
+function foo() {
+    console.log("id1:", this.id); //undefined
+    console.log("this1:", this);//foo
+    setTimeout(function() {
+        console.log("id2:", this.id);//21
+        console.log("this2:", this);//window
+    }, 0);
+}
 
-let pc = new Pclass() 
-console.log(pc)   //打印 Pclass {b: "变量B-外部可访问", Symbol(a): "这是私有变量", Symbol(m): ƒ}
+var id = 21;
+
+foo();
+
+foo.call({id: 42});
+
+//42 {id: 42} 21 window

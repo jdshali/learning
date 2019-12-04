@@ -105,3 +105,81 @@
 //五、Cookie
  //一个古老的方案，有点localStorage的降级兼容版，我也是整理本文的时候才发现的，
  //思路就是往document.cookie写入值，由于cookie的改变没有事件通知，所以只能采取轮询脏检查来实现业务逻辑。
+ //相较于其他方案没有存在优势的地方，只能同域使用，而且污染cookie以后还额外增加AJAX的请求头内容。
+
+//六、Server
+ //之前的方案都是前端自行实现，势必受到浏览器限制，比如无法做到跨浏览器的消息通讯，
+ //比如大部分方案都无法实现跨域通讯（需要增加额外的postMessage逻辑才能实现）。通过借助服务端，还有很多增强方案，也一并说下。
+
+ //乞丐版
+  //后端无开发量，前端定期保存，在tab被激活时重新获取保存的数据
+  //可以通过校验hash之类的标记位来提升检查性能
+  window.onvisibilitychange = () => {
+	if (document.visibilityState === 'visible') {
+		// AJAX
+	}
+ }
+
+
+ //Server-sent Events / Websocket
+ //项目规模小型的时候可以采取这类方案，后端自行维护连接，以及后续的推送行为。
+    // 前端
+    const es = new EventSource('/notification')
+
+    es.onmessage = evt => {
+        // evt.data
+    }
+    es.addEventListener('close', () => {
+        es.close()
+    }, false)
+
+
+    // 后端，express为例
+    const clients = []
+
+    app.get('/notification', (req, res) => {
+        res.setHeader('Content-Type', 'text/event-stream')
+        clients.push(res)
+        req.on('aborted', () => {
+            // 清理clients
+        })
+    })
+    app.get('/update', (req, res) => {
+        // 广播客户端新的数据
+        clients.forEach(client => {
+            client.write('data:hello\n\n')
+            setTimeout(() => {
+                client.write('event:close\ndata:close\n\n')
+            }, 500)
+        })
+        res.status(200).end()
+    })
+
+
+    //Websocket
+
+
+    //消息队列
+     //项目规模大型时，需要消息队列集群长时间维护长链接，在需要的时候进行广播
+     //提供该类服务的云服务商很多，或者寻找一些开源方案自建
+     //例如MQTT协议方案（阿里云就有提供），web客户端本质上也是websocket，
+     //需要集群同时支持ws和mqtt协议，示例如下：
+     // 前端
+        // 客户端使用开源的Paho
+        // port会和mqtt协议通道不同
+        const client = new Paho.MQTT.Client(host, port, 'clientId')
+
+        client.onMessageArrived = message => {
+            // message. payloadString
+        }
+        client.connect({
+            onSuccess: () => {
+                client.subscribe('notification')
+            }
+        })
+        // 抑或，借助flash（虽然快要被淘汰了）进行mqtt协议连接并订阅相应的频道，flash再通过回调抛出消息
+
+        // 后端
+        // 根据服务商提供的Api接口调用频道广播接口
+
+
