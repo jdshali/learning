@@ -11,7 +11,9 @@
     骨架屏
     https://github.com/lavas-project/vue-skeleton-webpack-plugin
     https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/270
+    饿了吗自动生成骨架屏
     https://github.com/Jocs/jocs.github.io/issues/22
+    https://zhuanlan.zhihu.com/p/34702561
 
 
     这篇文章从页面渲染的流程上提供了一些方案，比较重要的加载时间点是
@@ -19,3 +21,8 @@
     首次渲染：骨架屏
     可交互阶段：Tree Shaking、动态polyfill、动态ES6、路由懒加载
     组件加载
+
+
+### 二、JS执行性能
+
+    https://jsperf.com/
