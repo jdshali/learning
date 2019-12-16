@@ -1,0 +1,20 @@
+<!doctype html>
+<html>
+    <head>
+    <title>Test page in http://test.com</title>
+    </head>
+    <body>
+    <script src="http://another-domain.com/app.js"></script>
+    <script>
+        window.onerror = function (message, url, line, column, error) {
+            console.log(message, url, line, column, error);
+        }
+        try {
+            foo(); // 调用app.js中定义的foo方法
+        } catch (e) {
+            console.log(e);
+            throw e; 
+        }
+    </script>
+    </body>
+</html>
