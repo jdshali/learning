@@ -62,7 +62,7 @@ Array.prototype.deepFlatten = function() {
     // })
     this.forEach(function(val, index) {
         if(Array.isArray(val)){
-            val.forEach(arguments.callee);
+            val.forEach(arguments.callee); //相当于递归一次
         } else {
             result.push(val);
         }
