@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<head>
+    <style>
+        div,
+        body {
+            padding: 0 0;
+            margin: 0 0;
+            border: none;
+        }
+        
+
+
+
+        /*默认是基线对齐，改为middle*/
+
+
+        #parent {
+            height: 150px;
+            width: 200px;
+            display: table-cell;
+            vertical-align: middle;
+            /*text-align: center;*/
+            /*如果是行内元素就添加这个*/
+        }
+
+        #son {
+            /*margin: 0 auto;*/
+            /*如果是块级元素就添加这个*/
+            width: 100px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+
+<body>
+    <div id="parent">
+        <div id="son">
+            f
+        </div>
+    </div>
+</body>
