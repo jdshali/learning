@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<head>
+
+</head>
+
+<body>  
+   
+</body> 
+<script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+    console.log('$', $);
+</script>
+<script>
+var globalID;
+
+function repeatOften() {
+$("<div>eeee</div>").appendTo("body");
+  globalID = requestAnimationFrame(repeatOften);
+}
+
+// $("#start").on("click", function() {
+  //globalID = requestAnimationFrame(repeatOften);
+// });
+
+$("#stop").on("click", function() {
+  cancelAnimationFrame(globalID);
+});
+</script>
