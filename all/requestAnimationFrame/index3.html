@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<head>
+<style>
+  div{
+    margin: 0 auto;
+    height: 40px;
+    background-color:#0f0;
+    width: 12px;
+  }
+</style>
+</head>
+
+<body>
+  <div id="box"></div>
+</body>
+<script>
+  function animationWidth() {
+    var div = document.getElementById('box');
+    div.style.width = parseInt(div.style.width.replace('px','')) || 12 + 1 + 'px';
+    if (parseInt(div.style.width.replace('px','')) < 200) {
+      requestAnimationFrame(animationWidth)
+    }
+  }
+  requestAnimationFrame(animationWidth);
+
+</script>

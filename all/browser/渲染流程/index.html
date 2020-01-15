@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>浏览器渲染过程</title>
+    <!-- <link rel="stylesheet" type="text/css" href="./css/theme.css" /> -->
+    <style>
+        p {
+            color: blue;
+            font-size: 16px;
+        }
+
+        p span {
+            color: #000;
+        }
+        div{
+            
+            z-index: 10;
+        }
+        div p {
+            color: blue;
+            position: fixed;
+        }
+
+        div div {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <p>
+        <span>重点介绍</span> 渲染流程
+    </p>
+    <div>
+        <p>green</p>
+        <div>red</div>
+    </div>
+</body>
+
+</html>
